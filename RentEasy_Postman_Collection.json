@@ -1,0 +1,395 @@
+{
+	"info": {
+		"_postman_id": "a9b8c7d6-e5f4-4321-8765-abcdef123456",
+		"name": "RENT-EASY API Collection",
+		"description": "Comprehensive Postman collection for RENT-EASY PG & Hostel Room Rent Payment and Tenant Management System. Includes all CRUD endpoints, search, vacation workflow, partial/full payments, overpayment rejection, and dashboard analytics.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "01 Tenants",
+			"item": [
+				{
+					"name": "Get All Tenants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tenants",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tenants"]
+						}
+					}
+				},
+				{
+					"name": "Get Active Tenants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tenants/active",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tenants", "active"]
+						}
+					}
+				},
+				{
+					"name": "Get Vacated Tenants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tenants/vacated",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tenants", "vacated"]
+						}
+					}
+				},
+				{
+					"name": "Get Tenant by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tenants/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tenants", "1"]
+						}
+					}
+				},
+				{
+					"name": "Search Tenants by Name/Phone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tenants/search?q=Arun",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tenants", "search"],
+							"query": [
+								{
+									"key": "q",
+									"value": "Arun"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Register New Tenant (Assign Vacant Room)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"Rahul Verma\",\n  \"phone\": \"9811223344\",\n  \"email\": \"rahul.v@gmail.com\",\n  \"address\": \"Indiranagar, Bengaluru\",\n  \"gender\": \"Male\",\n  \"dateOfBirth\": \"1998-04-12\",\n  \"idProofType\": \"Aadhaar\",\n  \"idProofNumber\": \"4567-8901-2345\",\n  \"emergencyContactName\": \"Sunil Verma\",\n  \"emergencyContactPhone\": \"9811200000\",\n  \"moveInDate\": \"2026-09-01\",\n  \"monthlyRent\": 7000.0,\n  \"securityDeposit\": 14000.0,\n  \"roomId\": 3\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tenants",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tenants"]
+						}
+					}
+				},
+				{
+					"name": "Vacate Tenant (Release Room)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/tenants/1/vacate",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tenants", "1", "vacate"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "02 Rooms",
+			"item": [
+				{
+					"name": "Get All Rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/rooms",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rooms"]
+						}
+					}
+				},
+				{
+					"name": "Get Vacant Rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/rooms/vacant",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rooms", "vacant"]
+						}
+					}
+				},
+				{
+					"name": "Get Occupied Rooms",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/rooms/occupied",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rooms", "occupied"]
+						}
+					}
+				},
+				{
+					"name": "Get Room by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/rooms/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rooms", "1"]
+						}
+					}
+				},
+				{
+					"name": "Create Room",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"roomNumber\": \"D-401\",\n  \"floor\": 4,\n  \"roomType\": \"SINGLE\",\n  \"capacity\": 1,\n  \"monthlyRent\": 11000.0,\n  \"amenities\": \"AC, Attached Bath, Private Balcony, Wi-Fi\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/rooms",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rooms"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "03 Rent Payments",
+			"item": [
+				{
+					"name": "Get All Rent Payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/rent-payments",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rent-payments"]
+						}
+					}
+				},
+				{
+					"name": "Get Current Month Pending Rent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/rent-payments/pending/current-month",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rent-payments", "pending", "current-month"]
+						}
+					}
+				},
+				{
+					"name": "Get All Overdue Rent",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/rent-payments/overdue",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rent-payments", "overdue"]
+						}
+					}
+				},
+				{
+					"name": "Get Rent Obligations by Tenant ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/rent-payments/tenant/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rent-payments", "tenant", "1"]
+						}
+					}
+				},
+				{
+					"name": "Generate Current Month Rent (Active Tenants)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/rent-payments/generate-current-month",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "rent-payments", "generate-current-month"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "04 Payments",
+			"item": [
+				{
+					"name": "Get All Payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payments",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "payments"]
+						}
+					}
+				},
+				{
+					"name": "Record Partial Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rentPaymentId\": 3,\n  \"amount\": 3000.0,\n  \"paymentMethod\": \"UPI\",\n  \"transactionReference\": \"UPI/POSTMAN-TEST-001\",\n  \"notes\": \"Partial payment test via Postman\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/payments",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "payments"]
+						}
+					}
+				},
+				{
+					"name": "Record Full Remaining Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rentPaymentId\": 3,\n  \"amount\": 7000.0,\n  \"paymentMethod\": \"BANK_TRANSFER\",\n  \"transactionReference\": \"NEFT/POSTMAN-SETTLE-002\",\n  \"notes\": \"Full balance settlement\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/payments",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "payments"]
+						}
+					}
+				},
+				{
+					"name": "Get Digital Payment Receipt",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/payments/1/receipt",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "payments", "1", "receipt"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "05 Dashboard",
+			"item": [
+				{
+					"name": "Get Executive Dashboard Summary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/dashboard/summary",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "dashboard", "summary"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "06 Business Rule Tests",
+			"item": [
+				{
+					"name": "Attempt Assigning Occupied Room (Expect 409 Conflict)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"fullName\": \"Illegal Second Occupant\",\n  \"phone\": \"9888888888\",\n  \"moveInDate\": \"2026-09-01\",\n  \"monthlyRent\": 9500.0,\n  \"roomId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/tenants",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "tenants"]
+						}
+					}
+				},
+				{
+					"name": "Attempt Overpayment (Expect 400 Bad Request)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"rentPaymentId\": 1,\n  \"amount\": 999999.0,\n  \"paymentMethod\": \"CASH\",\n  \"notes\": \"Test overpayment failure\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/payments",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "payments"]
+						}
+					}
+				}
+			]
+		}
+	]
+}

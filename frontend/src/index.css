@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-main: #F5F1EA;
+    --bg-card: #FFFFFF;
+    --bg-card-subtle: #FAF7F2;
+    --bg-dark: #171613;
+    --bg-dark-surface: #22201C;
+    --text-primary: #24231F;
+    --text-secondary: #716C63;
+    --text-muted: #9E998F;
+    --border-subtle: #E6E0D6;
+    --border-strong: #CEC6B8;
+    
+    /* Brand & Accent Colors - NO BLUE */
+    --accent-terracotta: #C65D3A;
+    --accent-terracotta-hover: #B04F2E;
+    --accent-terracotta-light: #FDF1ED;
+    --accent-amber: #D39A45;
+    --accent-amber-light: #FBF4E8;
+    --accent-sage: #657A52;
+    --accent-sage-light: #EFF4EB;
+    --accent-danger: #B6473F;
+    --accent-danger-light: #FDF0EF;
+  }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #ECE6DC;
+}
+::-webkit-scrollbar-thumb {
+  background: #C4BCAC;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A89F8D;
+}
+
+/* Print Styles for Digital Receipt */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-receipt, #printable-receipt * {
+    visibility: visible;
+  }
+  #printable-receipt {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    background: white !important;
+    box-shadow: none !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
